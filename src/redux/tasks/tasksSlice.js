@@ -20,10 +20,16 @@ const tasksSlice = createSlice({
       state.todos.push(payload);
       state.openTasks = false;
       saveToStorage(state.todos);
+    },
+    togglecompleteTasks : (state , action) => {
+      const completeTodo = state.todos.find( t => t.id === action.payload.id);
+      completeTodo.completed = !completeTodo.completed;
+      saveToStorage(state.todos);
     }
+
   },
 });
 
-export const {toggleTaskBtn ,addTasks} = tasksSlice.actions;
+export const {toggleTaskBtn ,addTasks , togglecompleteTasks} = tasksSlice.actions;
 
 export default tasksSlice.reducer
