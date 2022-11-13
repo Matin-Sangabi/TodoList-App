@@ -7,23 +7,35 @@ const AddTasks = () => {
   const toggleBtn = useSelector((state) => state.tasks.openTasks);
   const dispatch = useDispatch();
   const [color, setColor] = useState("blue-500");
+  const [toggleColor, setToggleColor] = useState(false);
+  const toggleColorHandler = () =>{
+    setToggleColor(!toggleColor);
+  }
+  const changeColorHandler = ({ color }) => {
+    setToggleColor(false);
+    setColor(color);
+  };
+  const handleClick = () =>{
+    toggleColor && setToggleColor(false);
+  }
   return (
     <section
       className={`w-full px-4 h-screen bg-white absolute pt-6 top-0 left-0 overflow-hidden  ${
         toggleBtn ? "translate-y-0 block" : " translate-y-full"
       } transition-all ease-linear duration-500 z-30`}
+      onClick={handleClick}
     >
       <div className="w-full flex items-center justify-between">
         <button
           type="button"
-          className="text-2xl text-gray-500"
+          className="text-2xl text-gray-500 hover:-translate-x-2 transition-all duration-300 ease-linear"
           onClick={() => dispatch(toggleTaskBtn())}
         >
           <FiArrowLeft />
         </button>
         <button
           type="button"
-          className="w-6 h-6 rounded-full border-gray-500 border-2 flex items-center justify-center"
+          className="w-6 h-6 rounded-full ring-gray-500 ring-2 flex items-center justify-center group text-lg hover:rotate-180 transition-all ease-in-out duration-500"
           onClick={() => dispatch(toggleTaskBtn())}
         >
           <FiX />
@@ -38,7 +50,7 @@ const AddTasks = () => {
               </h1>
               <input
                 placeholder="Type Task's Title"
-                className="resize-none hover:ring-2 p-2 ring-1 ring-gray-300 transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
+                className="resize-none font-semibold text-slate-700 hover:ring-2 p-2 ring-1 ring-gray-300 transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
               />
             </div>
             <div className="flex flex-col gap-y-2">
@@ -47,7 +59,7 @@ const AddTasks = () => {
               </h1>
               <textarea
                 placeholder="Type Task's Title"
-                className="resize-none hover:ring-2 p-2 ring-1 ring-gray-300 transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
+                className="resize-none text-slate-700 hover:ring-2 p-2 ring-1 ring-gray-300 transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
               ></textarea>
             </div>
           </div>
@@ -60,7 +72,7 @@ const AddTasks = () => {
                 Today
               </span>
             </div>
-            <SetColors color={color} setColor={setColor} />
+            <SetColors color={color} changeColorHandler={changeColorHandler} toggleColorHandler={toggleColorHandler} toggleColor={toggleColor}/>
           </div>
         </div>
         <div className="w-full flex items-center justify-end">
@@ -79,17 +91,14 @@ const AddTasks = () => {
   );
 };
 
-const SetColors = ({ color, setColor }) => {
-  const [toggleColor, setToggleColor] = useState(false);
-  const changeColorHandler = ({ color }) => {
-    setToggleColor(false);
-    setColor(color);
-  };
+const SetColors = ({ color, changeColorHandler , toggleColorHandler ,toggleColor  }) => {
+  
+  
   return (
     <>
       <div
         className="w-10 h-10  rounded-full ring-1 ring-gray-400 flex items-center justify-center cursor-pointer group hover:ring-2 hover:ring-gray-500 transition-all ease-liner duration-300"
-        onClick={() => setToggleColor(!toggleColor)}
+        onClick={toggleColorHandler}
       >
         <span
           className={`w-6 h-6 rounded-full bg-${color} ring-1 ring-offset-1 ring-${color} group-hover:ring-2 group-hover:ring-offset-2 transition-all ease-linear duration-300`}
