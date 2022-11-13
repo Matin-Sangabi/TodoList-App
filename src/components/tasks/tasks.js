@@ -1,4 +1,8 @@
+import { useSelector } from "react-redux";
+
 const Tasks = () => {
+  const tasks = useSelector((state) => state.tasks.todos)
+  console.log(tasks);
   return (
     <section className="px-4 w-full ">
       <h1 className="text-gray-400 font-semibold px-2 pt-3 pb-2">

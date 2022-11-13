@@ -6,10 +6,13 @@ import Tasks from "./components/tasks/tasks";
 import WelComeSection from "./components/welcome/welcome";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer} from 'react-toastify';
 function App() {
   return (
     <Provider store={store}>
       <div className="max-w-sm mx-auto relative h-screen overflow-hidden">
+      <ToastContainer/>
         <Header />
         <WelComeSection />
         <Categories />

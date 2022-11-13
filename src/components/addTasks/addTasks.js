@@ -1,29 +1,54 @@
 import { useSelector, useDispatch } from "react-redux";
 import { FiArrowLeft, FiX, FiCalendar, FiChevronDown } from "react-icons/fi";
-import { toggleTaskBtn } from "../../redux/tasks/tasksSlice";
+import { addTasks, toggleTaskBtn } from "../../redux/tasks/tasksSlice";
 import { useState } from "react";
 import { colors } from "../../utils/colors";
+import { toast } from "react-toastify";
 const AddTasks = () => {
   const toggleBtn = useSelector((state) => state.tasks.openTasks);
   const dispatch = useDispatch();
   const [color, setColor] = useState("blue-500");
   const [toggleColor, setToggleColor] = useState(false);
-  const toggleColorHandler = () =>{
+  const [titleTask, setTitleTask] = useState("");
+  const [descTask, setDescTask] = useState("");
+  const toggleColorHandler = () => {
     setToggleColor(!toggleColor);
-  }
+  };
   const changeColorHandler = ({ color }) => {
     setToggleColor(false);
     setColor(color);
   };
-  const handleClick = () =>{
+  const sectionClickHandler = () => {
     toggleColor && setToggleColor(false);
-  }
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (titleTask.length === 0 && descTask.length === 0) {
+      toast.error("Please complete the forms !" ,  {
+        position: toast.POSITION.TOP_CENTER
+    });
+    } else {
+      const task = {
+        id: Date.now(),
+        title: titleTask,
+        desc: descTask,
+        color: color,
+        dateUpdated: new Date().toISOString(),
+      };
+      dispatch(addTasks(task))
+      
+      setTitleTask('');
+      setDescTask('');
+    }
+  };
+
   return (
     <section
       className={`w-full px-4 h-screen bg-white absolute pt-6 top-0 left-0 overflow-hidden  ${
         toggleBtn ? "translate-y-0 block" : " translate-y-full"
       } transition-all ease-linear duration-500 z-30`}
-      onClick={handleClick}
+      onClick={sectionClickHandler}
     >
       <div className="w-full flex items-center justify-between">
         <button
@@ -41,7 +66,10 @@ const AddTasks = () => {
           <FiX />
         </button>
       </div>
-      <form className="flex flex-col gap-y-6 w-full h-full justify-around">
+      <form
+        className="flex flex-col gap-y-6 w-full h-full justify-around"
+        onSubmit={submitHandler}
+      >
         <div className="space-y-4">
           <div className="space-y-6">
             <div className="flex flex-col gap-y-2">
@@ -51,6 +79,8 @@ const AddTasks = () => {
               <input
                 placeholder="Type Task's Title"
                 className="resize-none font-semibold text-slate-700 hover:ring-2 p-2 ring-1 ring-gray-300 transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
+                value={titleTask}
+                onChange={(e) => setTitleTask(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-y-2">
@@ -60,6 +90,8 @@ const AddTasks = () => {
               <textarea
                 placeholder="Type Task's Title"
                 className="resize-none text-slate-700 hover:ring-2 p-2 ring-1 ring-gray-300 transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
+                value={descTask}
+                onChange={(e) => setDescTask(e.target.value)}
               ></textarea>
             </div>
           </div>
@@ -72,7 +104,12 @@ const AddTasks = () => {
                 Today
               </span>
             </div>
-            <SetColors color={color} changeColorHandler={changeColorHandler} toggleColorHandler={toggleColorHandler} toggleColor={toggleColor}/>
+            <SetColors
+              color={color}
+              changeColorHandler={changeColorHandler}
+              toggleColorHandler={toggleColorHandler}
+              toggleColor={toggleColor}
+            />
           </div>
         </div>
         <div className="w-full flex items-center justify-end">
@@ -91,9 +128,12 @@ const AddTasks = () => {
   );
 };
 
-const SetColors = ({ color, changeColorHandler , toggleColorHandler ,toggleColor  }) => {
-  
-  
+const SetColors = ({
+  color,
+  changeColorHandler,
+  toggleColorHandler,
+  toggleColor,
+}) => {
   return (
     <>
       <div
