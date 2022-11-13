@@ -34,6 +34,7 @@ const AddTasks = () => {
         title: titleTask,
         desc: descTask,
         color: color,
+        completed : false,
         dateUpdated: new Date().toISOString(),
       };
       dispatch(addTasks(task))
@@ -141,7 +142,7 @@ const SetColors = ({
         onClick={toggleColorHandler}
       >
         <span
-          className={`w-6 h-6 rounded-full bg-${color} ring-1 ring-offset-1 ring-${color} group-hover:ring-2 group-hover:ring-offset-2 transition-all ease-linear duration-300`}
+          className={`w-6 h-6 rounded-full  bg-${color} ring-1 ring-offset-1 ring-${color} group-hover:ring-2 group-hover:ring-offset-2 transition-all ease-linear duration-300`}
         ></span>
       </div>
       {toggleColor && (
@@ -149,7 +150,7 @@ const SetColors = ({
           {colors.map((color, i) => (
             <span
               key={i}
-              className={`w-6 h-6 rounded-full bg-${color.color} cursor-pointer hover:ring-2 hover:ring-offset-2 transition-all ease-linear duration-300`}
+              className={`w-6 h-6 rounded-full bg-${color.color} cursor-pointer hover:ring-2 hover:ring-offset-2 hover:ring-${color.color} transition-all ease-linear duration-300`}
               onClick={() => changeColorHandler(color)}
             ></span>
           ))}
