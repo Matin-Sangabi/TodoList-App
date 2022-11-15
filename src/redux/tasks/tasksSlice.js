@@ -25,11 +25,16 @@ const tasksSlice = createSlice({
       const completeTodo = state.todos.find( t => t.id === action.payload.id);
       completeTodo.completed = !completeTodo.completed;
       saveToStorage(state.todos);
+    },
+    deleteTasks : (state , action) =>{
+      const deleteTasks = state.todos.filter((t) => t.id !== action.payload.id);
+      state.todos = deleteTasks;
+      saveToStorage(state.todos);
     }
 
   },
 });
 
-export const {toggleTaskBtn ,addTasks , togglecompleteTasks} = tasksSlice.actions;
+export const {toggleTaskBtn ,addTasks , togglecompleteTasks , deleteTasks} = tasksSlice.actions;
 
 export default tasksSlice.reducer

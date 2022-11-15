@@ -54,8 +54,8 @@ const Accordion = ({ task  , counter }) => {
         </button>
       </div>
       <div
-        className={`text-gray-500 bg-gray-100 -z-20 text-sm  w-56 transition-all ease-linear duration-300 px-4 ${
-          accordion ? "py-2  h-auto" : "h-0"
+        className={`text-gray-500 bg-white -z-20 text-sm  w-full transition-all ease-linear duration-200  px-4 ${
+          accordion ? "py-2  h-auto max-h-28 w-full overflow-x-auto opacity-95" : "opacity-0 h-0 overflow-hidden"
         } ${task.completed ? "text-xs " : ""}`}
       >
         {accordion ? task.desc : ""}

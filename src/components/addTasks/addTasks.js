@@ -46,9 +46,9 @@ const AddTasks = () => {
 
   return (
     <section
-      className={`w-full px-4 h-screen bg-white absolute pt-6 top-0 left-0 overflow-hidden  ${
+      className={`w-full  h-screen px-2 bg-white absolute pt-6 top-0 left-0 overflow-hidden  ${
         toggleBtn ? "translate-y-0 block" : " translate-y-full"
-      } transition-all ease-linear duration-500 z-30`}
+      } transition-all ease-linear duration-300 z-30`}
       onClick={sectionClickHandler}
     >
       <div className="w-full flex items-center justify-between">

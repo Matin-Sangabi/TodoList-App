@@ -11,7 +11,7 @@ import { ToastContainer} from 'react-toastify';
 function App() {
   return (
     <Provider store={store}>
-      <div className="max-w-sm mx-auto relative h-screen overflow-hidden">
+      <div className="max-w-sm mx-auto relative h-screen overflow-hidden bg-gray-100">
       <ToastContainer/>
         <Header />
         <WelComeSection />
