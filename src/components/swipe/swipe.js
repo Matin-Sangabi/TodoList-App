@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { HiOutlineTrash, HiPencilAlt } from "react-icons/hi";
+import { HiOutlineTrash } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { deleteTasks } from "../../redux/tasks/tasksSlice";
 

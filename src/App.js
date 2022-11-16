@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import Homepage from "./pages/HomePage/Homepage";
 
 import CategoriesPage from "./pages/Categories/Categories";
+import TasksShow from "./pages/tasksShow/tasksShow";
 function App() {
   return (
     <Provider store={store}>
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route element={<Homepage />} path="/" />
           <Route element={<CategoriesPage />} path="Categories" />
+          <Route element={<TasksShow />} path="tasks" />
         </Routes>
       </div>
     </Provider>

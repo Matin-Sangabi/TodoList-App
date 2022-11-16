@@ -128,7 +128,7 @@ const AddTasks = () => {
             />
           </div>
         </div>
-        <div className="w-full flex items-center justify-end">
+        <div className="w-full flex items-center justify-end absolute bottom-4 right-4">
           <button
             type="submit"
             className={`bg-${color} p-2 text-slate-100 rounded-md flex items-center justify-center gap-x-2 hover:ring-2 hover:ring-offset-2 hover:ring-${color} group transition-all ease-linear duration-300`}

@@ -4,9 +4,10 @@ import { FiChevronDown } from "react-icons/fi";
 
 import { useState } from "react";
 import { colors } from "../../utils/colors";
-import { addCategories, toggleMenuTasks } from "../../redux/tasks/tasksSlice";
+import { addCategories } from "../../redux/tasks/tasksSlice";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import calculateTotalTasks from "../../utils/calculateTotalTasks";
 
 const CategoriesPage = () => {
   const {categories} = useSelector((state) => state.tasks);
@@ -55,7 +56,7 @@ const CategoriesPage = () => {
   
   return (
     <Layout>
-      <section className="pt-4 px-4 space-y-4" onClick={sectionClickHandler}>
+      <section className="pt-4 px-4 space-y-4 " onClick={sectionClickHandler}>
       <div className="flex items-center justify-between">
         <Link to="/" className="text-xs text-sky-500">Back HomePage</Link>
         <h1 className="text-slate-700 font-semibold text-xl">Categorie</h1>
@@ -77,7 +78,7 @@ const CategoriesPage = () => {
                 </span>
                 <div className="w-full h-[6px] bg-gray-300 relative rounded">
                   <span
-                    style={{ width: categorie.total }}
+                    style={{ width: `${calculateTotalTasks(categorie.total)}%` }}
                     className={` absolute h-[6px] left-0 bg-${categorie.color} rounded`}
                   ></span>
                 </div>
@@ -87,7 +88,7 @@ const CategoriesPage = () => {
         </div>
         <h1 className="text-slate-700 font-semibold pt-8">Add New categori</h1>
         <form
-          className="w-full h-[370px] md:h-[400px] p-2 flex flex-col items-start relative"
+          className="w-full h-[370px] md:h-[400px] p-2 flex flex-col items-start "
           onSubmit={submitHandler}
         >
           <div className="flex flex-col w-full">
@@ -110,7 +111,7 @@ const CategoriesPage = () => {
               />
             </div>
           </div>
-          <div className="flex-1 flex items-end justify-end w-full">
+          <div className="flex-1 flex items-end justify-end w-full absolute bottom-4 right-4">
             <button
               type="submit"
               className={`bg-${color} p-2 text-slate-100 rounded-md flex items-center justify-center gap-x-2 hover:ring-2 hover:ring-offset-2 hover:ring-${color} group transition-all ease-linear duration-300`}
