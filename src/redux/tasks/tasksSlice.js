@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   todos: JSON.parse(localStorage.getItem('tasks')) || [],
   openTasks: false,
+  openMenu : false
 };
 
 function saveToStorage (tasks) {
@@ -30,11 +31,14 @@ const tasksSlice = createSlice({
       const deleteTasks = state.todos.filter((t) => t.id !== action.payload.id);
       state.todos = deleteTasks;
       saveToStorage(state.todos);
+    },
+    toggleMenuTasks : (state) =>{
+      state.openMenu = !state.openMenu
     }
 
   },
 });
 
-export const {toggleTaskBtn ,addTasks , togglecompleteTasks , deleteTasks} = tasksSlice.actions;
+export const {toggleTaskBtn ,addTasks , togglecompleteTasks , deleteTasks , toggleMenuTasks} = tasksSlice.actions;
 
 export default tasksSlice.reducer

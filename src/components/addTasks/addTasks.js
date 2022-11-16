@@ -11,6 +11,7 @@ const AddTasks = () => {
   const [toggleColor, setToggleColor] = useState(false);
   const [titleTask, setTitleTask] = useState("");
   const [descTask, setDescTask] = useState("");
+  const [selectCat, setSelectCat] = useState("");
   const toggleColorHandler = () => {
     setToggleColor(!toggleColor);
   };
@@ -24,29 +25,30 @@ const AddTasks = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (titleTask.length === 0 && descTask.length === 0) {
-      toast.error("Please complete the forms !" ,  {
-        position: toast.POSITION.TOP_CENTER
-    });
+    if (titleTask.length === 0 || descTask.length === 0) {
+      toast.error("Please complete the forms !", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     } else {
       const task = {
         id: Date.now(),
         title: titleTask,
         desc: descTask,
         color: color,
-        completed : false,
+        completed: false,
+        categorie : selectCat, 
         dateUpdated: new Date().toISOString(),
       };
-      dispatch(addTasks(task))
-      
-      setTitleTask('');
-      setDescTask('');
+      dispatch(addTasks(task));
+
+      setTitleTask("");
+      setDescTask("");
     }
   };
 
   return (
     <section
-      className={`w-full  h-screen px-2 bg-white absolute pt-6 top-0 left-0 overflow-hidden  ${
+      className={`w-full  h-screen px-2 bg-gray-100 absolute pt-6 top-0 left-0 overflow-hidden  ${
         toggleBtn ? "translate-y-0 block" : " translate-y-full"
       } transition-all ease-linear duration-300 z-30`}
       onClick={sectionClickHandler}
@@ -79,7 +81,7 @@ const AddTasks = () => {
               </h1>
               <input
                 placeholder="Type Task's Title"
-                className="resize-none font-semibold text-slate-700 hover:ring-2 p-2 ring-1 ring-gray-300 transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
+                className="resize-none font-semibold text-slate-700 hover:ring-2 p-2 ring-1 ring-gray-300 bg-transparent transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
                 value={titleTask}
                 onChange={(e) => setTitleTask(e.target.value)}
               />
@@ -90,13 +92,27 @@ const AddTasks = () => {
               </h1>
               <textarea
                 placeholder="Type Task's Title"
-                className="resize-none text-slate-700 hover:ring-2 p-2 ring-1 ring-gray-300 transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
+                className="resize-none text-slate-700 bg-transparent hover:ring-2 p-2 ring-1 ring-gray-300 transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
                 value={descTask}
                 onChange={(e) => setDescTask(e.target.value)}
               ></textarea>
+              <h1 className="text-slate-700  font-semibold">
+                Enter Task's Categories
+              </h1>
+              <select
+                className="bg-gray-100 border border-gray-300 text-slate-700 text-sm rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full p-2.5 form-select"
+                onChange={(e) => setSelectCat(e.target.value)}
+                value={selectCat}
+              >
+                <option className="p-2">Choose a country</option>
+                <option className="p-2" value="US">United States</option>
+                <option className="p-2" value="CA">Canada</option>
+                <option className="p-2" value="FR">France</option>
+                <option className="p-2" value="DE">Germany</option>
+              </select>
             </div>
           </div>
-          <div className="flex items-center gap-x-2 relative">
+          <div className="flex items-center gap-x-2 pt-8  relative">
             <div className="w-28 p-2 rounded-3xl ring-1 ring-gray-400 flex items-center gap-2 group cursor-pointer hover:ring-2 hover:ring-gray-500 transition-all duration-300 ease-linear">
               <span className="text-gray-400 group-hover:text-gray-700 transition-all ease-linear duration-300">
                 <FiCalendar />

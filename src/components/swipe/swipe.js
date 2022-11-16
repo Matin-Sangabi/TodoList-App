@@ -29,7 +29,7 @@ const SwipeToOption = ({ task }) => {
     if (counter <= 15) {
       setCounter((c) => (c = 0));
     } else {
-      setCounter((c) => (c = 60));
+      setCounter((c) => (c = 375));
     }
   };
 
@@ -104,19 +104,3 @@ const SwipeToOption = ({ task }) => {
 
 export default SwipeToOption;
 
-/**
- * <button
-            type="button"
-            className="transition-all  ease-in-out duration-500 bg-transparent   text-xl h-full p-1 text-slate-700"
-            onClick={() => setCounter(0)}
-          >
-            <HiPencilAlt />
-          </button>
-          <button
-            type="button"
-            className=" transition-all ease-in-out duration-500  bg-transparent p-1 text-xl h-full text-red-600 "
-            onClick={()=> dispatch(deleteTasks({id : task.id}))}
-          >
-            <HiOutlineTrash />
-          </button>
- */
