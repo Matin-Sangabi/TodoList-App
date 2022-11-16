@@ -73,7 +73,7 @@ const SwipeToOption = ({ task }) => {
             <button
               type="button"
               className=" transition-all ease-in-out duration-500  bg-transparent p-1 text-xl h-full text-slate-700 hover:text-2xl hover:text-red-600 "
-              onClick={() => dispatch(deleteTasks({ id: task.id }))}
+              onClick={() => dispatch(deleteTasks({ id: task.id , categorie : task.categorie}))}
             >
               <HiOutlineTrash />
             </button>

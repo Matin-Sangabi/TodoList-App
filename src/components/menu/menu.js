@@ -8,7 +8,6 @@ const navLinks = [
 ]
 const Menu = () => {
   const openMenu = useSelector((state) => state.tasks.openMenu);
-  console.log(openMenu);
   return (
     <div
       className={`w-full  absolute left-0 top-0 bg-[#041955]  h-screen transition-all ease-in-out duration-300 flex flex-col items-center justify-start ${

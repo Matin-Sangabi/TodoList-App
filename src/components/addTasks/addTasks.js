@@ -5,7 +5,7 @@ import { useState } from "react";
 import { colors } from "../../utils/colors";
 import { toast } from "react-toastify";
 const AddTasks = () => {
-  const toggleBtn = useSelector((state) => state.tasks.openTasks);
+  const {openTasks , categories} = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
   const [color, setColor] = useState("blue-500");
   const [toggleColor, setToggleColor] = useState(false);
@@ -49,7 +49,7 @@ const AddTasks = () => {
   return (
     <section
       className={`w-full  h-screen px-2 bg-gray-100 absolute pt-6 top-0 left-0 overflow-hidden  ${
-        toggleBtn ? "translate-y-0 block" : " translate-y-full"
+        openTasks ? "translate-y-0 block" : " translate-y-full"
       } transition-all ease-linear duration-300 z-30`}
       onClick={sectionClickHandler}
     >
@@ -105,10 +105,9 @@ const AddTasks = () => {
                 value={selectCat}
               >
                 <option className="p-2">Choose a country</option>
-                <option className="p-2" value="US">United States</option>
-                <option className="p-2" value="CA">Canada</option>
-                <option className="p-2" value="FR">France</option>
-                <option className="p-2" value="DE">Germany</option>
+                ${categories.map((item)=>(
+                  <option key={item.id} value={item.name}>{item.name}</option>
+                ))}
               </select>
             </div>
           </div>
