@@ -26,10 +26,10 @@ const SwipeToOption = ({ task }) => {
   };
   const endTouchHandler = () => {
     if (!touchStart || !touchEnd) return;
-    if (counter <= 15) {
+    if (counter <= 40) {
       setCounter((c) => (c = 0));
     } else {
-      setCounter((c) => (c = 375));
+      setCounter((c) => (c = 400));
     }
   };
 
@@ -44,10 +44,10 @@ const SwipeToOption = ({ task }) => {
     leftSwipe ? setCounter((c) => c + 1) : setCounter((c) => c - 1);
   };
   const dragEndHandler = () => {
-    if (counter <= 15) {
+    if (counter <= 40) {
       setCounter((c) => (c = 0));
     } else {
-      setCounter((c) => (c = 375));
+      setCounter((c) => (c = 400));
     }
   };
   return (
@@ -65,7 +65,7 @@ const SwipeToOption = ({ task }) => {
     >
       <div
         className={`absolute px-2 right-0 top-0 inline-flex justify-start items-center py-3 h-full w-full ${
-          counter > 15 ? "bg-gray-100" : "bg-white"
+          counter > 40 ? "bg-gray-100" : "bg-white"
         } gap-x-2 rounded-lg `}
       >
         <div className="flex justify-between w-full items-center gap-x-2">
@@ -77,17 +77,17 @@ const SwipeToOption = ({ task }) => {
             >
               <HiOutlineTrash />
             </button>
-            <span className="text-gray-400 ">The task was deleted</span>
+            <span className="text-gray-400 hover:text-green-600" onClick={() => setCounter(0)}>Tap to restore the task</span>
           </div>
           <div>
             <button
               type="button"
-              className={`ring ring-gray-300 bg-white flex  items-center justify-center rounded-2xl text-sm hover:text-green-700 transition-all ease-in-out duration-500 ${
+              className={`ring ring-gray-300 bg-white flex  items-center justify-center rounded-2xl text-sm hover:text-gray-100 hover:bg-indigo-500  transition-all ease-in-out duration-500 ${
                 counter > 15 ? "h-6 w-12" : ""
               }`}
-              onClick={() => setCounter(0)}
+              
             >
-              undo
+              Edit
             </button>
           </div>
         </div>

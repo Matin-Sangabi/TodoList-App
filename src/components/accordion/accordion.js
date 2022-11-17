@@ -54,11 +54,12 @@ const Accordion = ({ task  , counter }) => {
         </button>
       </div>
       <div
-        className={`text-gray-500 bg-white -z-20 text-sm  w-full transition-all ease-linear duration-200  px-4 ${
-          accordion ? "py-2  h-auto max-h-28 w-full overflow-x-auto opacity-95" : "opacity-0 h-0 overflow-hidden"
+        className={`text-gray-500 bg-white -z-20 text-sm flex flex-col gap-y-2 w-full transition-all ease-linear duration-200  px-4 ${
+          accordion ? "py-2 mt-[2px] h-auto max-h-28 w-full overflow-x-auto opacity-95" : "opacity-0 h-0 overflow-hidden"
         } ${task.completed ? "text-xs " : ""}`}
       >
-        {accordion ? task.desc : ""}
+        <span>desc : {accordion ? task.desc : ""}</span>
+        <span className=" text-xs font-semibold">Categorie : {task.categorie}</span>
       </div>
     </div>
   );

@@ -58,10 +58,10 @@ const CategoriesPage = () => {
     <Layout>
       <section className="pt-4 px-4 space-y-4 " onClick={sectionClickHandler}>
       <div className="flex items-center justify-between">
-        <Link to="/" className="text-xs text-sky-500">Back HomePage</Link>
         <h1 className="text-slate-700 font-semibold text-xl">Categorie</h1>
+        <Link to="/" className="text-xs text-sky-500">Back HomePage</Link>
       </div>
-        <div className="w-full flex flex-wrap items-start justify-center gap-2 h-[100px] md:h-[200px] overflow-auto scrollbar">
+        <div className="w-full flex flex-wrap items-start justify-center gap-2 h-[200px] md:h-[200px] overflow-auto scrollbar">
           {categories.map((categorie) => {
             return (
               <div

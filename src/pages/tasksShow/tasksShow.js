@@ -33,10 +33,10 @@ const TasksShow = () => {
     <Layout>
       <section className="w-full px-4">
         <div className="w-full flex items-center justify-between pt-10">
+          {categorisName && <h1 className="text-slate-700 font-semibold text-xl">{categorisName.name} Task's</h1>}
           <Link to="/" className="text-xs text-sky-500">
             Back HomePage
           </Link>
-          <h1 className="text-slate-700 font-semibold text-xl">Categorie</h1>
         </div>
         {categorisName && (
           <div className="pt-4 w-full">

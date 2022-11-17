@@ -70,7 +70,7 @@ const AddTasks = () => {
         </button>
       </div>
       <form
-        className="flex flex-col gap-y-6 w-full h-full justify-around"
+        className="flex flex-col gap-y-6 w-full pt-20"
         onSubmit={submitHandler}
       >
         <div className="space-y-4">
@@ -104,7 +104,7 @@ const AddTasks = () => {
                 onChange={(e) => setSelectCat(e.target.value)}
                 value={selectCat}
               >
-                <option className="p-2">Choose a country</option>
+                <option className="p-2">Choose a categorie</option>
                 ${categories.map((item)=>(
                   <option key={item.id} value={item.name}>{item.name}</option>
                 ))}
