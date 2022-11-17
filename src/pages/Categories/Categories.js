@@ -61,7 +61,7 @@ const CategoriesPage = () => {
         <Link to="/" className="text-xs text-sky-500">Back HomePage</Link>
         <h1 className="text-slate-700 font-semibold text-xl">Categorie</h1>
       </div>
-        <div className="w-full flex flex-wrap items-start justify-center gap-2 h-[100px] md:h-[200px] overflow-auto">
+        <div className="w-full flex flex-wrap items-start justify-center gap-2 h-[100px] md:h-[200px] overflow-auto scrollbar">
           {categories.map((categorie) => {
             return (
               <div

@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
-import { BiBookmark , BiCategory ,BiCog } from "react-icons/bi";
+import {  BiCategory ,BiCog } from "react-icons/bi";
+import { TbSmartHome } from "react-icons/tb";
 import { NavLink } from "react-router-dom";
 const navLinks = [
-  {id : 1 , path : '/', name : 'template' , icon : () => BiBookmark()},
+  {id : 1 , path : '/', name : 'Home' , icon : () => TbSmartHome()},
   {id : 2 , path : '/categories', name : 'Categories' , icon : () => BiCategory()},
   {id : 3 , path : '/setting', name : 'setting' , icon : () => BiCog()},
 ]

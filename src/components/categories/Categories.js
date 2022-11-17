@@ -1,15 +1,18 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {useHorizontalScroll} from "../../hooks/useHorizontalScroll";
 import calculateTotalTasks from "../../utils/calculateTotalTasks";
+
 const Categories = () => {
   const { categories } = useSelector((state) => state.tasks);
+  const horizontalScroll = useHorizontalScroll();
   return (
     <section className="px-4 w-full">
       <div className="flex flex-col w-full">
         <h1 className="text-gray-400 pt-3 px-4 font-semibold pb-2">
           CATEGORIES
         </h1>
-        <div className="flex  items-center justify-between gap-2 overflow-x-scroll  w-[100%] box-content ">
+        <div className="flex  items-center justify-between gap-2 overflow-x-scroll scrollbar  w-[100%] box-content " ref={horizontalScroll}>
           {categories.map((item) => (
             <Link
               to={`/tasks?cat=${item.name}&id=${item.id}`}
