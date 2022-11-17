@@ -12,7 +12,7 @@ const Categories = () => {
         <div className="flex  items-center justify-between gap-2 overflow-x-scroll  w-[100%] box-content ">
           {categories.map((item) => (
             <Link
-              to={`/tasks?cat=${item.name}`}
+              to={`/tasks?cat=${item.name}&id=${item.id}`}
               key={item.id}
               className={`bg-white rounded-lg shadow-md transition-all ease-in-out duration-300 pt-2 px-2 pb-6  flex-1  mb-4 hover:bg-${item.color} hover:bg-opacity-50 group `}
             >

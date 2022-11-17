@@ -38,12 +38,11 @@ const tasksSlice = createSlice({
       saveToStorageTasks(state.todos);
     },
     deleteTasks : (state , action) =>{
-      console.log(action);
-      const deleteTasks = state.todos.filter((t) => t.id !== action.payload.id);
-      const categorieTask = state.categories.find((c) => c.name === action.payload.categorie);
-      categorieTask.total -=1;
+      const deleteTasks = state.todos.filter((t) => t.id !== Number(action.payload.id));
       state.todos = deleteTasks;
       saveToStorageTasks(state.todos);
+      const categorieTask = state.categories.find((c) => c.name.toLowerCase() === action.payload.categorie.toLowerCase());
+      categorieTask.total -=1;
       saveToStorageCategories(state.categories);
     },
     toggleMenuTasks : (state) =>{
