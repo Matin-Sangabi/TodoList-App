@@ -10,6 +10,7 @@ const initialState = {
     { id: 2, name: "work", total: 0, color: "lime-800" },
     { id: 3, name: "Busines", total: 0, color: "indigo-600" },
   ],
+  theme: { light: true, dark: false, system: false },
 };
 
 function saveToStorageTasks(tasks) {
@@ -70,11 +71,11 @@ const tasksSlice = createSlice({
         const beforeCat = getOneCategorie(
           state.categories,
           action.payload.beforeCat
-        ); 
+        );
         const afterCat = getOneCategorie(
           state.categories,
           action.payload.task.categorie
-        ); 
+        );
         beforeCat.total -= 1;
         afterCat.total += 1;
         saveToStorageCategories(state.categories);
@@ -91,6 +92,25 @@ const tasksSlice = createSlice({
         state.editTask.task = null;
       }
     },
+    toggleThemeTasks: (state, action) => {
+      switch (action.payload.type) {
+        case "dark": {
+          console.log('dark');
+          state.theme.light = false;
+          state.theme.dark = true;
+          state.theme.system = false;
+          break;
+        }
+        case "light" : {
+          console.log('light');
+          state.theme.light = true;
+          state.theme.dark = false;
+          break;
+        }
+        default:
+          return state;
+      }
+    },
   },
 });
 
@@ -103,6 +123,7 @@ export const {
   addCategories,
   editTasksAdd,
   editTaskToggler,
+  toggleThemeTasks,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

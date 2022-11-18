@@ -58,7 +58,7 @@ const CategoriesPage = () => {
     <Layout>
       <section className="pt-4 px-4 space-y-4 " onClick={sectionClickHandler}>
       <div className="flex items-center justify-between">
-        <h1 className="text-slate-700 font-semibold text-xl">Categorie</h1>
+        <h1 className="text-slate-700 dark:text-gray-100 font-semibold text-xl">Categorie</h1>
         <Link to="/" className="text-xs text-sky-500">Back HomePage</Link>
       </div>
         <div className="w-full flex flex-wrap items-start justify-center gap-2 h-[200px] md:h-[200px] overflow-auto scrollbar">
@@ -66,9 +66,9 @@ const CategoriesPage = () => {
             return (
               <div
                 key={categorie.id}
-                className={`p-2 bg-white h-24 flex-grow text-slate-800 font-semibold w-28 animate-waving-hand  rounded-lg shadow-md flex flex-col justify-between group hover:bg-${categorie.color} hover:bg-opacity-50 hover:text-gray-100`}
+                className={`p-2 bg-white dark:bg-[#041955] h-24 flex-grow text-slate-800 font-semibold w-28 animate-waving-hand  rounded-lg shadow-md flex flex-col justify-between group hover:bg-${categorie.color} hover:bg-opacity-50 hover:text-gray-100`}
               >
-                <span className="h-10 overflow-auto text-sm max-w-24 break-words">
+                <span className="h-10 overflow-auto text-sm max-w-24 break-words text-slate-700 dark:text-gray-100">
                   {categorie.name}
                 </span>
                 <span
@@ -76,7 +76,7 @@ const CategoriesPage = () => {
                 >
                   total tasks : {categorie.total}
                 </span>
-                <div className="w-full h-[6px] bg-gray-300 relative rounded">
+                <div className="w-full h-[6px] bg-gray-300 dark:bg-stone-400 relative rounded">
                   <span
                     style={{ width: `${calculateTotalTasks(categorie.total)}%` }}
                     className={` absolute h-[6px] left-0 bg-${categorie.color} rounded`}
@@ -86,7 +86,7 @@ const CategoriesPage = () => {
             );
           })}
         </div>
-        <h1 className="text-slate-700 font-semibold pt-8">Add New categori</h1>
+        <h1 className="text-slate-700 dark:text-gray-100 font-semibold pt-8">Add New categori</h1>
         <form
           className="w-full h-[370px] md:h-[400px] p-2 flex flex-col items-start "
           onSubmit={submitHandler}
@@ -95,14 +95,14 @@ const CategoriesPage = () => {
             <div className="w-full">
               <input
                 type="text"
-                className="font-semibold text-slate-700 w-full hover:ring-2 p-2 ring-1 ring-gray-300 bg-transparent transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
+                className="font-semibold text-slate-700 dark:text-gray-100 w-full hover:ring-2 p-2 ring-1 ring-gray-300 dark:ring-stone-200 bg-transparent transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 dark:focus:shadow-stone-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
                 placeholder="Categorie : "
                 value={categoriValue}
                 onChange={(e) => setCategorieValue(e.target.value)}
               />
             </div>
             <div className="relative mt-8 flex items-center gap-4">
-              <h1 className="text-slate-500 ">Categorie color :</h1>
+              <h1 className="text-slate-500 dark:text-gray-300 ">Categorie color :</h1>
               <SetColors
                 color={color}
                 changeColorHandler={changeColorHandler}
@@ -114,7 +114,7 @@ const CategoriesPage = () => {
           <div className="flex-1 flex items-end justify-end w-full absolute bottom-4 right-4">
             <button
               type="submit"
-              className={`bg-${color} p-2 text-slate-100 rounded-md flex items-center justify-center gap-x-2 hover:ring-2 hover:ring-offset-2 hover:ring-${color} group transition-all ease-linear duration-300`}
+              className={`bg-${color} dark:bg-fuchsia-500 p-2 text-slate-100 rounded-md flex items-center justify-center gap-x-2 hover:ring-2 hover:ring-offset-2 hover:ring-${color} group transition-all ease-linear duration-300`}
             >
               <span className="text-xl group-hover:rotate-[360deg] transition-all duration-500 ease-linear">
                 <FiChevronDown />
@@ -144,7 +144,7 @@ const SetColors = ({
         ></span>
       </div>
       {toggleColor && (
-        <div className="p-2 bg-gray-100 rounded-md flex items-center gap-2 absolute right-2 top-8 w-40 flex-wrap justify-center shadow-md">
+        <div className="p-2 bg-gray-100 dark:bg-[#041955] rounded-md flex items-center gap-2 absolute right-0 top-10 w-40 flex-wrap justify-center shadow-md">
           {colors.map((color, i) => (
             <span
               key={i}

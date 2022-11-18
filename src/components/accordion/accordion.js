@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { HiChevronDown ,HiChevronLeft} from "react-icons/hi";
+import { HiChevronDown, HiChevronLeft } from "react-icons/hi";
 import { togglecompleteTasks } from "../../redux/tasks/tasksSlice";
-const Accordion = ({ task  , counter }) => {
+const Accordion = ({ task, counter }) => {
   const [accordion, setAccordion] = useState(false);
   const dispatch = useDispatch();
 
@@ -33,33 +33,55 @@ const Accordion = ({ task  , counter }) => {
             <p
               className={`font-semibold transition-all ease-in-out relative duration-500 flex items-center justify-center  ${
                 task.completed
-                  ? "line-through text-sm text-gray-400"
-                  : "text-slate-700"
-              } ${task.title.length > 25 && 'text-[13px]'}`}
+                  ? "line-through text-sm text-gray-400 dark:text-gray-700"
+                  : "text-slate-700 dark:text-gray-300"
+              } ${task.title.length > 25 && "text-[13px]"}`}
             >
-            {task.title}
+              {task.title}
             </p>
-            <span className={`transition-all ease-in-out duration-500  ${accordion ? 'rotate-180' : ''} ${task.completed ? 'text-gray-400 text-sm' : 'text-slate-700 text-lg'}`}><HiChevronDown/></span>
+            <span
+              className={`transition-all ease-in-out duration-500  ${
+                accordion ? "rotate-180" : ""
+              } ${
+                task.completed
+                  ? "text-gray-400 dark:text-gray-700 text-sm"
+                  : "text-slate-700 dark:text-gray-300 text-lg"
+              }`}
+            >
+              <HiChevronDown />
+            </span>
           </span>
           <span className="flex items-center justify-between">
-          <p
-            className={`transition-all ease-in-out duration-300 ${
-              task.completed ? "text-gray-400 text-xs" : "text-gray-500 text-sm"
-            }`}
-          >
-            {CalCulateTime(task.dateUpdated)}
-          </p>
-          <span className={`transition-all ease-in-out duration-300 ${counter >= 15 ? 'rotate-180' : '' }`}><HiChevronLeft/></span>
+            <p
+              className={`transition-all ease-in-out duration-300 ${
+                task.completed
+                  ? "text-gray-400 text-xs"
+                  : "text-gray-500 dark:text-gray-400 text-xs"
+              }`}
+            >
+              {CalCulateTime(task.dateUpdated)}
+            </p>
+            <span
+              className={`transition-all ease-in-out duration-300 text-slate-700 dark:text-gray-400  ${
+                counter >= 15 ? "rotate-180" : ""
+              }`}
+            >
+              <HiChevronLeft />
+            </span>
           </span>
         </button>
       </div>
       <div
-        className={`text-gray-500 bg-white -z-20 text-sm flex flex-col gap-y-2 w-full transition-all ease-linear duration-200  px-4 ${
-          accordion ? "py-2 mt-[2px] h-auto max-h-28 w-full overflow-x-auto opacity-95" : "opacity-0 h-0 overflow-hidden"
+        className={`text-gray-500 dark:text-gray-300 bg-white dark:bg-[#041955] -z-20 text-sm flex flex-col gap-y-2 w-full transition-all ease-linear duration-200  px-4 ${
+          accordion
+            ? "py-2 mt-[2px] h-auto max-h-28 w-full overflow-x-auto opacity-95"
+            : "opacity-0 h-0 overflow-hidden"
         } ${task.completed ? "text-xs " : ""}`}
       >
         <span>desc : {accordion ? task.desc : ""}</span>
-        <span className=" text-xs font-semibold">Categorie : {task.categorie}</span>
+        <span className=" text-xs font-semibold">
+          Categorie : {task.categorie}
+        </span>
       </div>
     </div>
   );

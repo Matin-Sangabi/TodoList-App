@@ -57,9 +57,9 @@ const SwipeToOption = ({ task }) => {
   };
   return (
     <div
-      className={`bg-white rounded-lg  flex items-center justify-between py-1 ${
+      className={`rounded-md   flex items-center justify-between py-1 ${
         counter > 15 ? "" : "shadow-md"
-      }  relative mx-auto w-full border-separate last:mb-36 lg:last:mb-8 animate-waving-hand`}
+      }  relative mx-auto w-full  last:mb-36 lg:last:mb-8 animate-waving-hand`}
       draggable="true"
       onTouchStart={startTouchHandler}
       onTouchMove={moveTouchandler}
@@ -69,15 +69,15 @@ const SwipeToOption = ({ task }) => {
       onDragEnd={dragEndHandler}
     >
       <div
-        className={`absolute px-2 right-0 top-0 inline-flex justify-start items-center py-3 h-full w-full ${
-          counter > 40 ? "bg-gray-100" : "bg-white"
+        className={`absolute px-2 right-0 top-0 inline-flex justify-start shadow-md shadow-gray-100 dark:shadow-blue-900  items-center py-3 h-full w-full rounded-md ${
+          counter > 40 ? "bg-gray-100 dark:bg-blue-900" : "bg-white dark:bg-[#041955]"
         } gap-x-2 rounded-lg `}
       >
         <div className="flex justify-between w-full items-center gap-x-2">
           <div className="flex items-center gap-x-2">
             <button
               type="button"
-              className=" transition-all ease-in-out duration-500  bg-transparent p-1 text-xl h-full text-slate-700 hover:text-2xl hover:text-red-600 "
+              className=" transition-all ease-in-out duration-500  bg-transparent p-1 text-xl h-full text-slate-700 dark:text-gray-100 dark:hover:text-red-600 hover:text-2xl hover:text-red-600 "
               onClick={() =>
                 dispatch(
                   deleteTasks({ id: task.id, categorie: task.categorie })
@@ -96,7 +96,7 @@ const SwipeToOption = ({ task }) => {
           <div>
             <button
               type="button"
-              className={`ring ring-gray-300 h-6 w-12 bg-white flex  items-center justify-center rounded-2xl text-sm hover:text-gray-100 hover:bg-${task.color}  transition-all ease-in-out duration-700`}
+              className={`ring ring-gray-300 h-6 w-12 bg-white dark:bg-[#041955] dark:text-gray-100 flex  items-center justify-center rounded-2xl text-sm hover:text-gray-100 hover:bg-${task.color}  transition-all ease-in-out duration-700`}
               onClick={() => dispatch(editTaskToggler({ task: task }))}
             >
               Edit
@@ -105,7 +105,7 @@ const SwipeToOption = ({ task }) => {
         </div>
       </div>
       <div
-        className="flex items-center  relative transition-all ease-linear duration-500  w-full bg-white box-border"
+        className="flex items-center   relative transition-all rounded-md ease-linear duration-500  w-full bg-white dark:bg-[#041955] box-border"
         style={{ transform: `translateX(-${counter}px)` }}
       >
         <Accordion task={task} counter={counter} />

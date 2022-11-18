@@ -6,7 +6,7 @@ const AddTasksBtn = () => {
   return (
     <button
       type="button"
-      className=" rounded-full bg-blue-500 text-white w-12 h-12 flex items-center justify-center absolute bottom-2 right-2  z-20 text-2xl group  hover:shadow-md hover:shadow-blue-500"
+      className=" rounded-full bg-blue-500 dark:bg-fuchsia-500 text-white w-12 h-12 flex items-center justify-center absolute bottom-2 right-2  z-20 text-2xl group  hover:shadow-md hover:shadow-blue-500"
       onClick={() => dispatch(toggleTaskBtn())}
     >
       <FiPlus className="group-hover:rotate-180 transition-all ease-linear duration-500" />

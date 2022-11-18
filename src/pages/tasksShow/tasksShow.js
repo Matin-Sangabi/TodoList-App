@@ -33,7 +33,7 @@ const TasksShow = () => {
     <Layout>
       <section className="w-full px-4">
         <div className="w-full flex items-center justify-between pt-10">
-          {categorisName && <h1 className="text-slate-700 font-semibold text-xl">{categorisName.name} Task's</h1>}
+          {categorisName && <h1 className="text-slate-700 dark:text-gray-100 font-semibold text-xl">{categorisName.name} Task's</h1>}
           <Link to="/" className="text-xs text-sky-500">
             Back HomePage
           </Link>
@@ -41,17 +41,17 @@ const TasksShow = () => {
         {categorisName && (
           <div className="pt-4 w-full">
             <div
-              className={`w-full bg-white shadow-md p-2 rounded-lg flex flex-col transition-all ease-in-out duration-300 items-start gap-y-4 hover:bg-${categorisName.color} hover:bg-opacity-50 group`}
+              className={`w-full bg-white dark:bg-[#041955] shadow-md p-2 rounded-lg flex flex-col transition-all ease-in-out duration-300 items-start gap-y-4 hover:bg-${categorisName.color} hover:bg-opacity-50 group`}
             >
               <h1
                 className={`text-gray-400 group-hover:text-${categorisName.color}`}
               >
                 {categorisName.total} tasks
               </h1>
-              <h1 className="text-2xl font-semibold text-slate-700 group-hover:text-gray-100">
+              <h1 className="text-2xl font-semibold text-slate-700 dark:text-gray-100 group-hover:text-gray-100">
                 {categorisName.name}
               </h1>
-              <div className="w-full h-[6px] bg-gray-300 relative rounded">
+              <div className="w-full h-[6px] bg-gray-300 dark:bg-stone-600 relative rounded">
                 <span
                   style={{
                     width: `${calculateTotalTasks(categorisName.total)}%`,
