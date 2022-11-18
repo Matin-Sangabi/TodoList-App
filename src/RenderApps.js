@@ -6,15 +6,12 @@ import TasksShow from "./pages/tasksShow/tasksShow";
 import Setting from "./pages/setting/setting";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { tasksThemes } from "./redux/tasks/tasksSlice";
 const RenderApps = () => {
-    const {dark} = useSelector((state) => state.tasks.theme);
+    const theme = useSelector((state) => state.tasks.theme);
     useEffect(() => {
-        if(dark) {
-            document.documentElement.classList.add('dark');
-        }else{
-            document.documentElement.classList.remove('dark')
-        }
-    } , [dark])
+      tasksThemes(theme)
+    } , [theme])
   return (
     <div className="max-w-screen-sm md:max-w-sm mx-auto relative h-screen overflow-hidden bg-gray-100 dark:bg-blue-900">
       <ToastContainer />

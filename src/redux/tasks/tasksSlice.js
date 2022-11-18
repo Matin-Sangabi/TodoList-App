@@ -10,7 +10,7 @@ const initialState = {
     { id: 2, name: "work", total: 0, color: "lime-800" },
     { id: 3, name: "Busines", total: 0, color: "indigo-600" },
   ],
-  theme: { light: true, dark: false, system: false },
+  theme: JSON.parse(localStorage.getItem("theme")) || "system",
 };
 
 function saveToStorageTasks(tasks) {
@@ -21,6 +21,9 @@ function saveToStorageCategories(categories) {
 }
 function getOneCategorie(categorie, payload) {
   return categorie.find((c) => c.name.toLowerCase() === payload.toLowerCase());
+}
+function saveToStorageTheme(theme) {
+  localStorage.setItem("theme", JSON.stringify(theme));
 }
 const tasksSlice = createSlice({
   name: "tasks",
@@ -93,26 +96,26 @@ const tasksSlice = createSlice({
       }
     },
     toggleThemeTasks: (state, action) => {
-      switch (action.payload.type) {
-        case "dark": {
-          console.log('dark');
-          state.theme.light = false;
-          state.theme.dark = true;
-          state.theme.system = false;
-          break;
-        }
-        case "light" : {
-          console.log('light');
-          state.theme.light = true;
-          state.theme.dark = false;
-          break;
-        }
-        default:
-          return state;
-      }
+      state.theme = action.payload.type;
+      saveToStorageTheme(state.theme);
     },
   },
 });
+const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+export function tasksThemes(userSelectTheme) {
+  if (userSelectTheme === "dark" || (!userSelectTheme && systemTheme)) {
+    document.documentElement.classList.add("dark");
+  } else if (userSelectTheme === "system") {
+    localStorage.removeItem("theme");
+    if (systemTheme) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+}
 
 export const {
   toggleTaskBtn,
