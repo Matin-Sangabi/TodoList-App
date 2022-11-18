@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { HiOutlineTrash } from "react-icons/hi";
 import { useDispatch } from "react-redux";
-import { deleteTasks } from "../../redux/tasks/tasksSlice";
+import { deleteTasks, editTaskToggler } from "../../redux/tasks/tasksSlice";
 
 import Accordion from "../accordion/accordion";
 const SwipeToOption = ({ task }) => {
@@ -85,7 +85,7 @@ const SwipeToOption = ({ task }) => {
               className={`ring ring-gray-300 bg-white flex  items-center justify-center rounded-2xl text-sm hover:text-gray-100 hover:bg-indigo-500  transition-all ease-in-out duration-500 ${
                 counter > 15 ? "h-6 w-12" : ""
               }`}
-              
+              onClick={() => dispatch(editTaskToggler({task : task}))}
             >
               Edit
             </button>

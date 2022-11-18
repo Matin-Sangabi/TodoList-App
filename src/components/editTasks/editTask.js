@@ -1,17 +1,27 @@
 import { useSelector, useDispatch } from "react-redux";
 import { FiArrowLeft, FiX, FiCalendar, FiChevronDown } from "react-icons/fi";
-import { addTasks, toggleTaskBtn } from "../../redux/tasks/tasksSlice";
-import { useState } from "react";
+import { editTasksAdd, editTaskToggler } from "../../redux/tasks/tasksSlice";
+import { useEffect, useState } from "react";
 import { colors } from "../../utils/colors";
 import { toast } from "react-toastify";
-const AddTasks = () => {
-  const {openTasks , categories} = useSelector((state) => state.tasks);
+
+const EditTasks = () => {
+  const { editTask, categories } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
-  const [color, setColor] = useState("blue-500");
+  const { toggleOpenEdit, task } = editTask;
+  const [color, setColor] = useState("");
   const [toggleColor, setToggleColor] = useState(false);
   const [titleTask, setTitleTask] = useState("");
   const [descTask, setDescTask] = useState("");
   const [selectCat, setSelectCat] = useState("");
+  useEffect(() => {
+    if (task) {
+      setColor(task.color);
+      setTitleTask(task.title);
+      setDescTask(task.desc);
+      setSelectCat(task.categorie);
+    }
+  }, [task]);
   const toggleColorHandler = () => {
     setToggleColor(!toggleColor);
   };
@@ -23,33 +33,32 @@ const AddTasks = () => {
     toggleColor && setToggleColor(false);
   };
 
+
   const submitHandler = (e) => {
     e.preventDefault();
-    if (titleTask.length === 0 || descTask.length === 0 ) {
+    if (titleTask.length === 0 || descTask.length === 0) {
       toast.error("Please complete the forms !", {
         position: toast.POSITION.TOP_CENTER,
       });
     } else {
-      const task = {
-        id: Date.now(),
+      const editTask = {
+        id: task.id,
         title: titleTask,
         desc: descTask,
         color: color,
-        completed: false,
-        categorie : selectCat, 
-        dateUpdated: new Date().toISOString(),
+        completed: task.completed,
+        categorie: selectCat,
+        dateUpdated: task.dateUpdated,
       };
-      dispatch(addTasks(task));
-
-      setTitleTask("");
-      setDescTask("");
+      if(task) {
+        dispatch(editTasksAdd({task : editTask , beforeCat : task.categorie}))
+      }
     }
   };
-
   return (
     <section
       className={`w-full  h-screen px-2 bg-gray-100 absolute pt-6 top-0 left-0 overflow-hidden  ${
-        openTasks ? "translate-y-0 block" : " translate-y-full"
+        toggleOpenEdit ? "translate-y-0 block" : " translate-y-full"
       } transition-all ease-linear duration-500 z-30`}
       onClick={sectionClickHandler}
     >
@@ -57,14 +66,14 @@ const AddTasks = () => {
         <button
           type="button"
           className="text-2xl text-gray-500 hover:-translate-x-2 transition-all duration-300 ease-linear"
-          onClick={() => dispatch(toggleTaskBtn())}
+          onClick={() => dispatch(editTaskToggler())}
         >
           <FiArrowLeft />
         </button>
         <button
           type="button"
           className="w-6 h-6 rounded-full ring-gray-500 ring-2 flex items-center justify-center group text-lg hover:rotate-180 transition-all ease-in-out duration-500"
-          onClick={() => dispatch(toggleTaskBtn())}
+          onClick={() => dispatch(editTaskToggler())}
         >
           <FiX />
         </button>
@@ -104,9 +113,11 @@ const AddTasks = () => {
                 onChange={(e) => setSelectCat(e.target.value)}
                 value={selectCat}
               >
-                <option className="p-2">Choose a categorie</option>
-                ${categories.map((item)=>(
-                  <option key={item.id} value={item.name}>{item.name}</option>
+                <option className="p-2">Choose a categorie</option>$
+                {categories.map((item) => (
+                  <option key={item.id} value={item.name}>
+                    {item.name}
+                  </option>
                 ))}
               </select>
             </div>
@@ -161,7 +172,7 @@ const SetColors = ({
         ></span>
       </div>
       {toggleColor && (
-        <div className="p-2 bg-gray-100 rounded-md flex items-center gap-2 absolute right-7 top-6 w-40 flex-wrap justify-center shadow-md">
+        <div className="p-2 bg-gray-100 rounded-md flex items-center gap-2 absolute right-10 top-16 w-40 flex-wrap justify-center shadow-md">
           {colors.map((color, i) => (
             <span
               key={i}
@@ -175,4 +186,4 @@ const SetColors = ({
   );
 };
 
-export default AddTasks;
+export default EditTasks;
