@@ -31,13 +31,13 @@ const Accordion = ({ task  , counter }) => {
         >
           <span className="flex items-center gap-x-1">
             <p
-              className={`font-semibold transition-all ease-in-out duration-500 flex items-center justify-center  ${
+              className={`font-semibold transition-all ease-in-out relative duration-500 flex items-center justify-center  ${
                 task.completed
                   ? "line-through text-sm text-gray-400"
                   : "text-slate-700"
-              }`}
+              } ${task.title.length > 25 && 'text-[13px]'}`}
             >
-              {task.title}
+            {task.title}
             </p>
             <span className={`transition-all ease-in-out duration-500  ${accordion ? 'rotate-180' : ''} ${task.completed ? 'text-gray-400 text-sm' : 'text-slate-700 text-lg'}`}><HiChevronDown/></span>
           </span>

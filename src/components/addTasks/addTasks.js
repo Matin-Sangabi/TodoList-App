@@ -50,7 +50,7 @@ const AddTasks = () => {
     <section
       className={`w-full  h-screen px-2 bg-gray-100 absolute pt-6 top-0 left-0 overflow-hidden  ${
         openTasks ? "translate-y-0 block" : " translate-y-full"
-      } transition-all ease-linear duration-500 z-30`}
+      } transition-all ease-linear delay-500 z-30`}
       onClick={sectionClickHandler}
     >
       <div className="w-full flex items-center justify-between">

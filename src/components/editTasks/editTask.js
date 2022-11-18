@@ -33,7 +33,6 @@ const EditTasks = () => {
     toggleColor && setToggleColor(false);
   };
 
-
   const submitHandler = (e) => {
     e.preventDefault();
     if (titleTask.length === 0 || descTask.length === 0) {
@@ -50,16 +49,14 @@ const EditTasks = () => {
         categorie: selectCat,
         dateUpdated: task.dateUpdated,
       };
-      if(task) {
-        dispatch(editTasksAdd({task : editTask , beforeCat : task.categorie}))
-      }
+      dispatch(editTasksAdd({ task: editTask, beforeCat: task.categorie }));
     }
   };
   return (
     <section
       className={`w-full  h-screen px-2 bg-gray-100 absolute pt-6 top-0 left-0 overflow-hidden  ${
         toggleOpenEdit ? "translate-y-0 block" : " translate-y-full"
-      } transition-all ease-linear duration-500 z-30`}
+      } transition-all ease-in-out duration-500 delay-500 z-30`}
       onClick={sectionClickHandler}
     >
       <div className="w-full flex items-center justify-between">
