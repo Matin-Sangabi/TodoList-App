@@ -24,7 +24,7 @@ const Setting = () => {
   useEffect(() => {
     const systemTheme = people.find((t) => t.name === theme); 
     setSelected(systemTheme)
-  } , [theme , people])
+  } , [theme])
   const changeHandler = (e) =>{
     setSelected(e);
     dispatch(toggleThemeTasks({type : e.name}))

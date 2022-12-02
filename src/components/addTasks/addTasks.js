@@ -4,6 +4,8 @@ import { addTasks, toggleTaskBtn } from "../../redux/tasks/tasksSlice";
 import { useState } from "react";
 import { colors } from "../../utils/colors";
 import { toast } from "react-toastify";
+import SelectDatePicker from "../DatePicker/DatePicker.";
+
 const AddTasks = () => {
   const {openTasks , categories} = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
@@ -112,14 +114,10 @@ const AddTasks = () => {
             </div>
           </div>
           <div className="flex items-center gap-x-2 pt-8  relative">
-            <div className="w-28 p-2 rounded-3xl ring-1 ring-gray-400 dark:ring-stone-300 flex items-center gap-2 group cursor-pointer hover:ring-2 hover:ring-gray-500 dark:hover:ring-stone-500 transition-all duration-300 ease-linear">
-              <span className="text-gray-400 dark:text-stone-200 group-hover:text-gray-700 dark:group-hover:text-stone-500 transition-all ease-linear duration-300">
-                <FiCalendar />
-              </span>
-              <span className="text-gray-400 dark:text-stone-200 group-hover:text-gray-700 dark:group-hover:text-stone-500 transition-all ease-linear duration-300">
-                Today
-              </span>
-            </div>
+            {/* <div className="w-28 p-2 rounded-3xl ring-1 ring-gray-400 dark:ring-stone-300 flex items-center gap-2 group cursor-pointer hover:ring-2 hover:ring-gray-500 dark:hover:ring-stone-500 transition-all duration-300 ease-linear">
+            </div> */}
+            <SelectDatePicker/>
+
             <SetColors
               color={color}
               changeColorHandler={changeColorHandler}
@@ -176,3 +174,11 @@ const SetColors = ({
 };
 
 export default AddTasks;
+/**
+ * <span className="text-gray-400 dark:text-stone-200 group-hover:text-gray-700 dark:group-hover:text-stone-500 transition-all ease-linear duration-300">
+                <FiCalendar />
+              </span>
+              <span className="text-gray-400 dark:text-stone-200 group-hover:text-gray-700 dark:group-hover:text-stone-500 transition-all ease-linear duration-300">
+                Today
+              </span>
+ */
