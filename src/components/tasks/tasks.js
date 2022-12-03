@@ -44,7 +44,7 @@ const Tasks = () => {
       <h1 className="text-gray-500 dark:text-stone-300 font-semibold px-1 pt-3 pb-2">
         ALL TASKS
       </h1>
-      <div className="flex flex-col gap-y-2 h-[450px] md:h-[600px] mb-40  overflow-y-auto scrollbar">
+      <div className="flex flex-col gap-y-2 h-[350px] md:h-[600px] mb-40  overflow-y-auto scrollbar">
         {sortTasks.length === 0 ? (
           <div className="text-center text-slate-700 dark:text-stone-300">
             No Task's yet
