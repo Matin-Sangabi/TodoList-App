@@ -1,26 +1,35 @@
 import Layout from "../../layout/layout";
 import { useDispatch, useSelector } from "react-redux";
-import { FiChevronDown } from "react-icons/fi";
+import { FiChevronDown, FiTrash2, FiEdit2 } from "react-icons/fi";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { colors } from "../../utils/colors";
-import { addCategories } from "../../redux/tasks/tasksSlice";
+import {
+  addCategories,
+  deleteCategorie,
+  editCategories,
+} from "../../redux/tasks/tasksSlice";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import calculateTotalTasks from "../../utils/calculateTotalTasks";
 
 const CategoriesPage = () => {
-  const {categories} = useSelector((state) => state.tasks);
+  const { categories } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
-
   const [color, setColor] = useState("blue-500");
   const [toggleColor, setToggleColor] = useState(false);
   const [categoriValue, setCategorieValue] = useState("");
+  const [editCat, setEditCat] = useState({
+    value: "",
+    isEdit: false,
+    cat: null,
+  });
 
   const changeColorHandler = ({ color }) => {
     setToggleColor(false);
     setColor(color);
   };
+
   const toggleColorHandler = () => {
     setToggleColor(!toggleColor);
   };
@@ -53,24 +62,83 @@ const CategoriesPage = () => {
     dispatch(addCategories(categorieAction));
     setCategorieValue("");
   };
-  
+  const deleteCateGorieHandler = (categori) => {
+    if (categori.total === 0) {
+      dispatch(deleteCategorie({ id: categori.id }));
+      toast.success("Categorie Delected", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      toast.error("There are tasks in this category, you cannot delete them!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
+  };
+  const editCategorieHandler = (e) => {
+    e.preventDefault();
+    if (editCat.value.length === 0) {
+      toast.error("categori title not empty !", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    } else {
+      dispatch(
+        editCategories({
+          afterName: editCat.value,
+          cat: editCat.cat,
+          color: color,
+        })
+      );
+      toast.success("categori successfuly Edited !", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setEditCat({ value: "", isEdit: false, cat: "" });
+    }
+  };
   return (
     <Layout>
       <section className="pt-4 px-4 space-y-4 " onClick={sectionClickHandler}>
-      <div className="flex items-center justify-between">
-        <h1 className="text-slate-700 dark:text-gray-100 font-semibold text-xl">Categorie</h1>
-        <Link to="/" className="text-xs text-sky-500">Back HomePage</Link>
-      </div>
-        <div className="w-full flex flex-wrap items-start justify-center gap-2 h-[200px] md:h-[200px] overflow-auto scrollbar">
+        <div className="flex items-center justify-between">
+          <h1 className="text-slate-700 dark:text-gray-100 font-semibold text-xl">
+            Categorie
+          </h1>
+          <Link to="/" className="text-xs text-sky-500">
+            Back HomePage
+          </Link>
+        </div>
+        <div className="w-full flex flex-wrap items-start justify-center gap-2 h-[200px]  overflow-auto scrollbar">
           {categories.map((categorie) => {
             return (
               <div
                 key={categorie.id}
-                className={`p-2 bg-white dark:bg-[#041955] h-24 flex-grow text-slate-800 font-semibold w-28 animate-waving-hand  rounded-lg shadow-md flex flex-col justify-between group hover:bg-${categorie.color} hover:bg-opacity-50 hover:text-gray-100`}
+                className={`p-2 bg-white group/item dark:bg-[#041955] h-24 flex-grow text-slate-800 font-semibold w-28 animate-waving-hand  rounded-lg shadow-md flex flex-col justify-between group hover:bg-${categorie.color} hover:bg-opacity-50 hover:text-gray-100`}
               >
-                <span className="h-10 overflow-auto text-sm max-w-24 break-words text-slate-700 dark:text-gray-100">
+                <span className=" text-sm max-w-24 break-words text-slate-700 dark:text-gray-100">
                   {categorie.name}
                 </span>
+                <div className="flex gap-x-1 items-center w-8 invisible group/edit group-hover/item:visible">
+                  <button
+                    onClick={() => deleteCateGorieHandler(categorie)}
+                    type="button"
+                    className="hover:text-red-500"
+                  >
+                    <FiTrash2 />
+                  </button>
+                  <button
+                    onClick={() =>
+                      setEditCat({
+                        value: categorie.name,
+                        isEdit: true,
+                        cat: categorie,
+                      })
+                    }
+                    type="button"
+                    className="hover:text-yellow-500"
+                  >
+                    <FiEdit2 />
+                  </button>
+                </div>
                 <span
                   className={`text-sm text-gray-400  group-hover:text-${categorie.color}`}
                 >
@@ -78,7 +146,9 @@ const CategoriesPage = () => {
                 </span>
                 <div className="w-full h-[6px] bg-gray-300 dark:bg-stone-400 relative rounded">
                   <span
-                    style={{ width: `${calculateTotalTasks(categorie.total)}%` }}
+                    style={{
+                      width: `${calculateTotalTasks(categorie.total)}%`,
+                    }}
                     className={` absolute h-[6px] left-0 bg-${categorie.color} rounded`}
                   ></span>
                 </div>
@@ -86,10 +156,14 @@ const CategoriesPage = () => {
             );
           })}
         </div>
-        <h1 className="text-slate-700 dark:text-gray-100 font-semibold pt-8">Add New categori</h1>
+        <h1 className="text-slate-700 dark:text-gray-100 font-semibold pt-8">
+          {editCat.isEdit ? "Edit" : "Add"} New categori
+        </h1>
         <form
           className="w-full h-[370px] md:h-[400px] p-2 flex flex-col items-start "
-          onSubmit={submitHandler}
+          onSubmit={(e) => {
+            editCat.isEdit ? editCategorieHandler(e) : submitHandler(e);
+          }}
         >
           <div className="flex flex-col w-full">
             <div className="w-full">
@@ -97,12 +171,27 @@ const CategoriesPage = () => {
                 type="text"
                 className="font-semibold text-slate-700 dark:text-gray-100 w-full hover:ring-2 p-2 ring-1 ring-gray-300 dark:ring-stone-200 bg-transparent transition-all ease-in-out duration-300 focus:shadow-md focus:shadow-gray-500 dark:focus:shadow-stone-500 hover:ring-gray-500 rounded-md outline-none border-none focus:ring-2 focus:ring-gray-500"
                 placeholder="Categorie : "
-                value={categoriValue}
-                onChange={(e) => setCategorieValue(e.target.value)}
+                value={editCat.isEdit ? editCat.value : categoriValue}
+                onChange={(e) => {
+                  editCat.isEdit
+                    ? setEditCat({ ...editCat, value: e.target.value })
+                    : setCategorieValue(e.target.value);
+                }}
               />
             </div>
+            {editCat.isEdit && (
+              <button
+                type="button"
+                className="text-blue-600 text-xs text-left pt-2 px-2"
+                onClick={() => setEditCat({ isEdit: false })}
+              >
+                Back to Add Categorie
+              </button>
+            )}
             <div className="relative mt-8 flex items-center gap-4">
-              <h1 className="text-slate-500 dark:text-gray-300 ">Categorie color :</h1>
+              <h1 className="text-slate-500 dark:text-gray-300 ">
+                Categorie color :
+              </h1>
               <SetColors
                 color={color}
                 changeColorHandler={changeColorHandler}
@@ -119,7 +208,9 @@ const CategoriesPage = () => {
               <span className="text-xl group-hover:rotate-[360deg] transition-all duration-500 ease-linear">
                 <FiChevronDown />
               </span>
-              <span className="">New Categorie</span>
+              <span className="">
+                {editCat.isEdit ? "Edit" : "New"} Categorie
+              </span>
             </button>
           </div>
         </form>

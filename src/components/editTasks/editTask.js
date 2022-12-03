@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { FiArrowLeft, FiX, FiCalendar, FiChevronDown } from "react-icons/fi";
+import { FiArrowLeft, FiX, FiChevronDown } from "react-icons/fi";
 import { editTasksAdd, editTaskToggler } from "../../redux/tasks/tasksSlice";
 import { useEffect, useState } from "react";
 import { colors } from "../../utils/colors";
@@ -16,6 +16,7 @@ const EditTasks = () => {
   const [descTask, setDescTask] = useState("");
   const [selectCat, setSelectCat] = useState("");
   const [date, setDate] = useState();
+  
   useEffect(() => {
     if (task) {
       setColor(task.color);

@@ -87,6 +87,29 @@ const tasksSlice = createSlice({
       state.editTask.toggleOpenEdit = false;
       saveToStorageTasks(state.todos);
     },
+    deleteCategorie: (state, action) => {
+      const deleteCat = state.categories.filter(
+        (c) => c.id !== action.payload.id
+      );
+      state.categories = deleteCat;
+      saveToStorageCategories(deleteCat);
+    },
+    editCategories: (state, action) => {
+      if (state.todos.length) {
+        const filterTasks = state.todos.filter(
+          (t) =>
+            t.categorie.toLowerCase() === action.payload.cat.name.toLowerCase()
+        );
+        filterTasks.map((item) => {
+          return (item.categorie = action.payload.afterName);
+        });
+        saveToStorageTasks(state.todos);
+      }
+      const edit = state.categories.find((c) => c.id === action.payload.cat.id);
+      edit.name = action.payload.afterName;
+      edit.color = action.payload.color;
+      saveToStorageCategories(state.categories);
+    },
     editTaskToggler: (state, action) => {
       state.editTask.toggleOpenEdit = !state.editTask.toggleOpenEdit;
       if (action.payload) {
@@ -127,6 +150,8 @@ export const {
   editTasksAdd,
   editTaskToggler,
   toggleThemeTasks,
+  deleteCategorie,
+  editCategories,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
