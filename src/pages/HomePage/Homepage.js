@@ -11,6 +11,7 @@ const Homepage = () => {
     <Layout>
       <WelComeSection />
       <Categories />
+      
       <Tasks />
       <AddTasksBtn />
       <AddTasks />

@@ -34,7 +34,7 @@ const SwipeToOption = ({ task }) => {
     if (counter <= 20) {
       setCounter((c) => (c = 0));
     } else {
-      setCounter((c) => (c = 400));
+      setCounter((c) => (c = 600));
     }
   };
 
@@ -52,12 +52,12 @@ const SwipeToOption = ({ task }) => {
     if (counter <= 20) {
       setCounter((c) => (c = 0));
     } else {
-      setCounter((c) => (c = 400));
+      setCounter((c) => (c = 600));
     }
   };
   return (
     <div
-      className={`rounded-md   flex items-center justify-between py-1 ${
+      className={`rounded-md   flex items-center justify-between py-1 mb-2 ${
         counter > 15 ? "" : "shadow-md"
       }  relative mx-auto w-full  last:mb-36 lg:last:mb-8 animate-waving-hand`}
       draggable="true"
@@ -105,7 +105,7 @@ const SwipeToOption = ({ task }) => {
         </div>
       </div>
       <div
-        className="flex items-center   relative transition-all rounded-md ease-linear duration-500  w-full bg-white dark:bg-[#041955] box-border"
+        className="flex items-center z-0  relative transition-all rounded-md ease-linear duration-500  w-full bg-white dark:bg-[#041955] box-border"
         style={{ transform: `translateX(-${counter}px)` }}
       >
         <Accordion task={task} counter={counter} />

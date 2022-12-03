@@ -13,7 +13,7 @@ const Accordion = ({ task, counter }) => {
     });
   };
   return (
-    <div className="w-full p-2 z-20">
+    <div className="w-full p-2">
       <div className="flex items-center gap-x-2 w-full">
         <div className="">
           <input
