@@ -6,9 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./datapicker.css";
-export default function SelectDatePicker() {
-    const today = new Date();
-  const [value, setValue] = React.useState(today);
+export default function SelectDatePicker({value , setValue}) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const systemMode = () => {
     localStorage.removeItem("theme");

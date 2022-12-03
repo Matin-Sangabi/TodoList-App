@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { FiArrowLeft, FiX, FiCalendar, FiChevronDown } from "react-icons/fi";
+import { FiArrowLeft, FiX, FiChevronDown } from "react-icons/fi";
 import { addTasks, toggleTaskBtn } from "../../redux/tasks/tasksSlice";
 import { useState } from "react";
 import { colors } from "../../utils/colors";
 import { toast } from "react-toastify";
 import SelectDatePicker from "../DatePicker/DatePicker.";
+
 
 const AddTasks = () => {
   const {openTasks , categories} = useSelector((state) => state.tasks);
@@ -14,6 +15,7 @@ const AddTasks = () => {
   const [titleTask, setTitleTask] = useState("");
   const [descTask, setDescTask] = useState("");
   const [selectCat, setSelectCat] = useState("");
+  const [date , setDate] = useState(new Date());
   const toggleColorHandler = () => {
     setToggleColor(!toggleColor);
   };
@@ -39,7 +41,8 @@ const AddTasks = () => {
         color: color,
         completed: false,
         categorie : selectCat, 
-        dateUpdated: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+        taskUpdated : date
       };
       dispatch(addTasks(task));
 
@@ -116,8 +119,7 @@ const AddTasks = () => {
           <div className="flex items-center gap-x-2 pt-8  relative">
             {/* <div className="w-28 p-2 rounded-3xl ring-1 ring-gray-400 dark:ring-stone-300 flex items-center gap-2 group cursor-pointer hover:ring-2 hover:ring-gray-500 dark:hover:ring-stone-500 transition-all duration-300 ease-linear">
             </div> */}
-            <SelectDatePicker/>
-
+            <SelectDatePicker value={date} setValue={setDate}/>
             <SetColors
               color={color}
               changeColorHandler={changeColorHandler}

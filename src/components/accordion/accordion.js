@@ -59,7 +59,7 @@ const Accordion = ({ task, counter }) => {
                   : "text-gray-500 dark:text-gray-400 text-xs"
               }`}
             >
-              {CalCulateTime(task.dateUpdated)}
+              {CalCulateTime(task.taskUpdated)}
             </p>
             <span
               className={`transition-all ease-in-out duration-300 text-slate-700 dark:text-gray-400  ${
@@ -79,9 +79,19 @@ const Accordion = ({ task, counter }) => {
         } ${task.completed ? "text-xs " : ""}`}
       >
         <span>desc : {accordion ? task.desc : ""}</span>
-        <span className=" text-xs font-semibold">
-          Categorie : {task.categorie}
-        </span>
+        <div className=" flex justify-between items-center text-xs font-semibold">
+          <span>Categorie : {task.categorie}</span>
+          <span className="text-xs ">
+            Created At :
+            {new Date(task.createdAt).toLocaleString("en-us", {
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </span>
+        </div>
       </div>
     </div>
   );
