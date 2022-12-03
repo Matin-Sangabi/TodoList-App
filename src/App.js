@@ -6,7 +6,9 @@ import RenderApps from "./RenderApps";
 function App() {
   return (
     <Provider store={store}>
-      <RenderApps/>
+      <div className="w-full h-screen dark:bg-[#041955] dark:bg-opacity-60 bg-opacity-10 bg-gray-100">
+        <RenderApps/>
+      </div>
     </Provider>
   );
 }

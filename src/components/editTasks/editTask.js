@@ -4,6 +4,7 @@ import { editTasksAdd, editTaskToggler } from "../../redux/tasks/tasksSlice";
 import { useEffect, useState } from "react";
 import { colors } from "../../utils/colors";
 import { toast } from "react-toastify";
+import SelectDatePicker from "../DatePicker/DatePicker.";
 
 const EditTasks = () => {
   const { editTask, categories } = useSelector((state) => state.tasks);
@@ -14,12 +15,14 @@ const EditTasks = () => {
   const [titleTask, setTitleTask] = useState("");
   const [descTask, setDescTask] = useState("");
   const [selectCat, setSelectCat] = useState("");
+  const [date, setDate] = useState();
   useEffect(() => {
     if (task) {
       setColor(task.color);
       setTitleTask(task.title);
       setDescTask(task.desc);
       setSelectCat(task.categorie);
+      setDate(new Date(task.taskUpdated));
     }
   }, [task]);
   const toggleColorHandler = () => {
@@ -47,7 +50,8 @@ const EditTasks = () => {
         color: color,
         completed: task.completed,
         categorie: selectCat,
-        dateUpdated: task.dateUpdated,
+        createdAt: new Date().toISOString(),
+        taskUpdated: date,
       };
       dispatch(editTasksAdd({ task: editTask, beforeCat: task.categorie }));
     }
@@ -120,14 +124,7 @@ const EditTasks = () => {
             </div>
           </div>
           <div className="flex items-center gap-x-2 pt-8  relative">
-            <div className="w-28 p-2 rounded-3xl ring-1 ring-gray-400 flex items-center gap-2 group cursor-pointer hover:ring-2 hover:ring-gray-500 dark:hover:ring-stone-500 transition-all duration-300 ease-linear">
-              <span className="text-gray-400 dark:text-gray-200 group-hover:text-gray-700 dark:hover:text-stone-500 transition-all ease-linear duration-300">
-                <FiCalendar />
-              </span>
-              <span className="text-gray-400 dark:text-gray-200 group-hover:text-gray-700 dark:hover:text-stone-500 transition-all ease-linear duration-300">
-                Today
-              </span>
-            </div>
+            <SelectDatePicker value={date} setValue={setDate} />
             <SetColors
               color={color}
               changeColorHandler={changeColorHandler}
